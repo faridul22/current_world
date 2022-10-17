@@ -5,7 +5,6 @@ const loadCategoriesName = () => {
         .then(data => displayCategoriesName(data.data.news_category))
         .catch(error => console.log(error))
 };
-
 loadCategoriesName();
 
 const displayCategoriesName = categories => {
@@ -17,7 +16,6 @@ const displayCategoriesName = categories => {
                <p onclick="loadCategoryId('${category.category_id}')" class="px-2 py-1 rounded" href="">${category.category_name}</p>
         `;
         categoresContainer.appendChild(categoiryDiv);
-        // console.log(category)
     });
 };
 
@@ -32,6 +30,8 @@ const displayNewsByCategory = newsCategories => {
     const newsContainer = document.getElementById('news_container');
     newsContainer.textContent = ``;
     newsCategories.forEach(news => {
+
+        news.details = news.details.slice(0, 350)
         const newsDiv = document.createElement('div');
         newsDiv.innerHTML = `
         <div class="card mb-3 my-4">
@@ -42,7 +42,8 @@ const displayNewsByCategory = newsCategories => {
                 <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">${news.title ? news.title : 'No data found'}</h5>
-                            <p class="card-text">${news.details ? news.details : 'No data found'}</p>
+                            <p id="news_details" class="card-text">${news.details ? news.details : 'No data found'}....</p>
+
                             <div class="card-text d-flex justify-content-between align-items-center pt-1">
                                 <div class="d-flex">
                                    <div>
