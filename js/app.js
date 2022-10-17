@@ -1,3 +1,4 @@
+// load news categories data
 const loadCategoriesName = () => {
     const url = 'https://openapi.programming-hero.com/api/news/categories';
     fetch(url)
@@ -8,18 +9,20 @@ const loadCategoriesName = () => {
 };
 loadCategoriesName();
 
+// display news categories name
 const displayCategoriesName = categories => {
     const categoresContainer = document.getElementById('categores_container');
     categories.forEach(category => {
         const categoiryDiv = document.createElement('div');
         categoiryDiv.classList.add('categoiry');
         categoiryDiv.innerHTML = `
-               <p onclick="loadCategoryId('${category.category_id}')" class="px-2 py-1 rounded" href="">${category.category_name}</p>
+               <p onclick="loadCategoryId('${category.category_id ? category.category_id : 'No data found'}')" class="px-2 py-1 rounded" href="">${category.category_name ? category.category_name : 'No data found'}</p>
         `;
         categoresContainer.appendChild(categoiryDiv);
     });
 };
 
+// news load by category id
 const loadCategoryId = categoryId => {
     const url = ` https://openapi.programming-hero.com/api/news/category/${categoryId}`
     fetch(url)
@@ -29,15 +32,30 @@ const loadCategoryId = categoryId => {
     toggleSpinner(true);
 };
 
-// display news
+// display all news
 const displayNewsByCategory = newsCategories => {
-    toggleSpinner(true)
+
+    // display how many news found
+    const showDataNumberField = document.getElementById('show_data_number');
+    showDataNumberField.value = `${newsCategories.length} items found your search category`;
+
+    // display no data found
+    const noDataFound = document.getElementById('no_data');
+    if (newsCategories.length === 0) {
+        noDataFound.classList.remove('d-none')
+        toggleSpinner(false);
+    }
+    else {
+        noDataFound.classList.add('d-none')
+    }
+
+    // display news
     const newsContainer = document.getElementById('news_container');
     newsContainer.textContent = ``;
     newsCategories.forEach(news => {
-        // details text ellipsis
+        // news details text ellipsis
         news.details = news.details.slice(0, 350);
-
+        // create new card
         const newsDiv = document.createElement('div');
         newsDiv.innerHTML = `
         <div class="card mb-3 my-4">
@@ -70,7 +88,7 @@ const displayNewsByCategory = newsCategories => {
                                 <span><i class="fa-regular fa-star"></i></span>
                             </div>
                             <div>
-                                <p class="text-primary">Show details</p>
+                                <p onclick="loadNewsDetails('${news._id}')" class="btn text-primary fw-bolder">Show details</p>
                             </div>
                         </div>
                     </div>
@@ -79,8 +97,9 @@ const displayNewsByCategory = newsCategories => {
         </div>    
         `;
         newsContainer.appendChild(newsDiv);
-        toggleSpinner(false)
-        console.log(news)
+        toggleSpinner(false);
+        // console.log(news)
+
     })
 };
 
@@ -93,4 +112,13 @@ const toggleSpinner = isLoding => {
     else {
         spinner.classList.add('d-none')
     }
+};
+
+const loadNewsDetails = (newsId) => {
+    const url = `https://openapi.programming-hero.com/api/news/${newsId}`
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
 }
+
+// display modal

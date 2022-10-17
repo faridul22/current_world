@@ -40,6 +40,11 @@
     </header>
     <!-- main start -->
     <main class="container">
+
+        <section id="" class="py-3">
+            <input type="text" id="show_data_number" class="form-control ps-3 py-3 fs-5 fw-bolder"
+                aria-describedby="passwordHelpBlock">
+        </section>
         <!--display categories title -->
         <section>
             <div id="categores_container" class="d-flex justify-content-around fs-5">
@@ -58,6 +63,11 @@
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
+            </div>
+        </section>
+        <section id="no_data" class="d-none">
+            <div class="text-danger text-center mt-5">
+                <h2>No data found</h2>
             </div>
         </section>
     </main>
