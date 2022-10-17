@@ -40,7 +40,7 @@
     </header>
     <!-- main start -->
     <main class="container">
-
+        <!-- display found news data number -->
         <section id="" class="py-3">
             <input type="text" id="show_data_number" class="form-control ps-3 py-3 fs-5 fw-bolder"
                 aria-describedby="passwordHelpBlock">
@@ -65,9 +65,31 @@
                 </div>
             </div>
         </section>
+        <!-- no data found -->
         <section id="no_data" class="d-none">
             <div class="text-danger text-center mt-5">
                 <h2>No data found</h2>
+            </div>
+        </section>
+        <!-- modal section-->
+        <section>
+            <!-- Modal -->
+            <div class="modal fade" id="newsDetailModal" tabindex="-1" aria-labelledby="newsDetailModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 id="modal_title" class="modal-title" id="newsDetailModalLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="modal_container" class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

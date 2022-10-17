@@ -88,7 +88,7 @@ const displayNewsByCategory = newsCategories => {
                                 <span><i class="fa-regular fa-star"></i></span>
                             </div>
                             <div>
-                                <p onclick="loadNewsDetails('${news._id}')" class="btn text-primary fw-bolder">Show details</p>
+                                <p onclick="loadNewsDetails('${news._id}')" class="btn text-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Show details</p>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,78 @@ const loadNewsDetails = (newsId) => {
     const url = `https://openapi.programming-hero.com/api/news/${newsId}`
     fetch(url)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => displayNewsDetails(data.data))
+        .catch(error => console.log(error))
 }
 
 // display modal
+const displayNewsDetails = newsDetails => {
+    //  display how many news found
+    const showDataNumberField = document.getElementById('show_data_number');
+    showDataNumberField.value = `${newsDetails.length} items found your search category`;
+
+    // display no data found
+    const noDataFound = document.getElementById('no_data');
+    if (newsDetails.length === 0) {
+        noDataFound.classList.remove('d-none')
+        toggleSpinner(false);
+    }
+    else {
+        noDataFound.classList.add('d-none')
+    }
+
+    // display news
+    const modalContainer = document.getElementById('modal_container');
+    modalContainer.textContent = ``;
+    newsDetails.forEach(news => {
+        // news details text ellipsis
+        news.details = news.details.slice(0, 350);
+        // create news modal
+        const modalTitle = document.getElementById('modal_title');
+        modalTitle.innerText = `${news.title ? news.title : 'No data found'}`;
+        const newsModalDiv = document.createElement('div');
+
+        newsModalDiv.innerHTML = `
+        <div class="card mb-3 my-4">
+            <div class="row g-0 p-3">
+                <div class="col-md-12 text-center">
+                    <img src="${news.image_url ? news.image_url : 'No data found'}" class="img-fluid " alt="...">
+                </div>
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <p id="news_details" class="card-text">${news.details ? news.details : 'No data found'}....</p>
+                        <div class="card-text d-flex flex-column justify-content-between align-items-center pt-1">
+                            <div class="d-flex">
+                                <div>
+                                    <img class="rounded-circle" src="${news.author.img ? news.author.img : 'No data found'}" alt="" width="60" height="60">
+                                </div>
+                                <div class="ms-3">
+                                    <h5>${news.author.name ? news.author.name : 'No author founds'}</h5>
+                                    <p class="text-muted">${news.author.published_date ? news.author.published_date : 'No data found'} M</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                 <h5><span><i class="fa-regular fa-eye"></i></span> ${news.total_view ? news.total_view : 'No data found'}</h5>
+                                </div>
+                                <div class="ms-4">
+                                    <span><i class="fa-regular fa-star-half-stroke"></i></span>
+                                    <span><i class="fa-regular fa-star"></i></span>
+                                    <span><i class="fa-regular fa-star"></i></span>
+                                    <span><i class="fa-regular fa-star"></i></span>
+                                    <span><i class="fa-regular fa-star"></i></span>
+                                    <span class="fw-bolder">${news.rating.number}</i></span>
+                                    
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        `; modalContainer.appendChild(newsModalDiv);
+        toggleSpinner(false);
+        // console.log(news)
+
+    })
+};
