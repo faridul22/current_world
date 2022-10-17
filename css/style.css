@@ -1,0 +1,9 @@
+.categoiry a {
+    text-decoration: none;
+    color: gray
+}
+
+.categoiry a:hover {
+    color: blue;
+    background-color: hwb(203 78% 6%);
+}
