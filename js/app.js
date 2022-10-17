@@ -16,7 +16,7 @@ const displayCategoriesName = categories => {
         const categoiryDiv = document.createElement('div');
         categoiryDiv.classList.add('categoiry');
         categoiryDiv.innerHTML = `
-               <p onclick="loadCategoryId('${category.category_id ? category.category_id : 'No data found'}')" class="px-2 py-1 rounded" href="">${category.category_name ? category.category_name : 'No data found'}</p>
+               <p onclick="loadCategoryId('${category.category_id ? category.category_id : 'No data found'}')" class="px-2 py-1 rounded categoiry" href="">${category.category_name ? category.category_name : 'No data found'}</p>
         `;
         categoresContainer.appendChild(categoiryDiv);
     });
@@ -37,7 +37,7 @@ const displayNewsByCategory = newsCategories => {
 
     // display how many news found
     const showDataNumberField = document.getElementById('show_data_number');
-    showDataNumberField.value = `${newsCategories.length} items found your search category`;
+    showDataNumberField.value = `${newsCategories.length ? newsCategories.length : 'No news found'} items your search category News`;
 
     // display no data found
     const noDataFound = document.getElementById('no_data');
@@ -60,15 +60,15 @@ const displayNewsByCategory = newsCategories => {
         newsDiv.innerHTML = `
         <div class="card mb-3 my-4">
             <div class="row g-0 p-3">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
                     <img src="${news.thumbnail_url ? news.thumbnail_url : 'No data found'}" class="img-fluid rounded-start" alt="...">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 col-sm-12">
                     <div class="card-body">
                             <h5 class="card-title">${news.title ? news.title : 'No data found'}</h5>
                             <p id="news_details" class="card-text">${news.details ? news.details : 'No data found'}....</p>
-                            <div class="card-text d-flex justify-content-between align-items-center pt-1">
-                                <div class="d-flex">
+                            <div class="card-text d-sm-inline-flex d-md-flex justify-content-between align-items-center pt-1">
+                                <div class="d-sm-inline-flex d-md-flex">
                                 <div>
                                     <img class="rounded-circle" src="${news.author.img ? news.author.img : 'No data found'}" alt="" width="60" height="60">
                                 </div>
@@ -152,10 +152,10 @@ const displayNewsDetails = newsDetails => {
         newsModalDiv.innerHTML = `
         <div class="card mb-3 my-4">
             <div class="row g-0 p-3">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 col-sm-12 text-center">
                     <img src="${news.image_url ? news.image_url : 'No data found'}" class="img-fluid " alt="...">
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12">
                     <div class="card-body">
                         <p id="news_details" class="card-text">${news.details ? news.details : 'No data found'}....</p>
                         <div class="card-text d-flex flex-column justify-content-between align-items-center pt-1">
@@ -189,7 +189,6 @@ const displayNewsDetails = newsDetails => {
         </div>    
         `; modalContainer.appendChild(newsModalDiv);
         toggleSpinner(false);
-        // console.log(news)
 
     })
 };

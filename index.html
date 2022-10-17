@@ -24,7 +24,12 @@
                         class="bg-success text-white px-3 py-2 rounded fs-4">Current</span>
                     <span class="text-success ms-2 fs-4">World</span>
                 </a>
-                <div id="navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0 fs-5">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">News</a>
@@ -40,16 +45,16 @@
     </header>
     <!-- main start -->
     <main class="container">
+        <!--display categories title -->
+        <section>
+            <div id="categores_container" class="d-sm-inline-flex d-md-flex justify-content-around fs-5">
+
+            </div>
+        </section>
         <!-- display found news data number -->
         <section id="" class="py-3">
             <input type="text" id="show_data_number" class="form-control ps-3 py-3 fs-5 fw-bolder"
                 aria-describedby="passwordHelpBlock">
-        </section>
-        <!--display categories title -->
-        <section>
-            <div id="categores_container" class="d-flex justify-content-around fs-5">
-
-            </div>
         </section>
         <!-- display news-->
         <section>
